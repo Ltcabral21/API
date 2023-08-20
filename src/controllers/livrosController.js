@@ -3,41 +3,41 @@ import livros from "../models/Livro.js";
 class LivroController {
 
 
-    static listarlivros = (req,res) => {
+    static ShowBooks = (req,res) => {
         livros.find((err, livros) => {
             res.status(200).json(livros)
     })
 }
-    static listaLivroPorId = (req,res) => {
+    static ShowBooksById = (req,res) => {
        const id = req.params.id;
 
        livros.findById(id,(err, livros) => {
         if(err){
-            res.status(400).send({message: `${err.message}-Id do livro nao encontrado` })
+            res.status(400).send({message: `${err.message}-ID not found` })
         }else{
                 res.status(200).send(livros);
             }
        })
     }
 
-  static cadastraLivro = (req,res) => {
+  static AddNewBook = (req,res) => {
  let livro = new livros(req.body);
 
  livro.save((err) =>{
     if(err){
-        res.status(500).send({message: `${err.message } - falha ao cadastrar`})    } 
+        res.status(500).send({message: `${err.message } - error while trying register`})    } 
         else{
             res.status(201).send(livro.toJSON())
         };
  });
   }
 
-  static atualizarLivro = (req,res) => {
+  static UptadeBook = (req,res) => {
     const id = req.params.id;
 
     livros.findByIdAndUpdate(id, {$set: req.body}, (err) =>{
         if(!err){
-            res.status(200).send({message: 'Livro atualizado com sucesso' }) 
+            res.status(200).send({message: 'Book uptaded  successfully' }) 
         }else{
             res.status(500).send({message:err.message})
         }
@@ -45,12 +45,12 @@ class LivroController {
  
   }
 
-  static excluirLivro = (req,res) => {
+  static Bookdelete = (req,res) => {
     const id = req.params.id;
 
     livros.findByIdAndDelete(id, (err) => {
         if(!err){
-            res.status(200).send({message:'Livro removido com sucesso'})
+            res.status(200).send({message:'Book deleted successfully '})
             }else{
                 res.status(500).send({message: err.message});
             }
