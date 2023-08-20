@@ -5,7 +5,7 @@ import routes from "./routes/index.js"
 
 db.on('error', console.log.bind(console, "Erro de conexão"));
 db.once("open",() => {
-    console.log('conexcao feita com sucesso');
+    console.log('conection done successfully');
 })
 
 const app = express();
